@@ -126,8 +126,16 @@ WHERE e.Name ='joy'
 GROUP BY g.Name
 ORDER BY Count(g.id) DESC;
 
-/*20. Which gender has the least number of poems with an emotion of fear?*/
-
+/*20. Which gender has the least number of poems with an emotion of fear ? - Ambiguous*/
+SELECT TOP 1 g.Name, Count(g.id) fear
+FROM Gender g
+LEFT JOIN Author a ON g.Id =a.GenderId
+LEFT JOIN Poem p ON a.Id = p.AuthorId
+LEFT JOIN PoemEmotion pe ON p.Id = pe.PoemId
+LEFT JOIN Emotion e ON pe.EmotionId = e.Id 
+WHERE e.Name ='fear'
+GROUP BY g.Name
+ORDER BY Count(g.id);
 
 
 
